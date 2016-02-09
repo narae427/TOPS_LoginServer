@@ -20,7 +20,6 @@ public class NodeThread extends Thread {
 	Node node = null;
 	Socket socket = null;
 
-	// InetAddress ia = null;
 	public NodeThread(Node newNode, String commandMessage) throws IOException {
 		this.node = newNode;
 		this.commandMessage = commandMessage;
@@ -28,7 +27,6 @@ public class NodeThread extends Thread {
 
 	public NodeThread(String freindIDs, String commandMessage)
 			throws IOException {
-		// socket = ss.accept();
 		this.freindID = freindIDs;
 		this.commandMessage = commandMessage;
 	}
@@ -65,9 +63,6 @@ public class NodeThread extends Thread {
 	}
 
 	public static void sendMSG_king(Node node, String message) {
-//		System.out.println("HHH : "
-//				+ node.SocketKing.getInetAddress().getHostAddress() + " "
-//				+ node.SocketKing.getPort());
 		try {
 
 			ReliableSocketOutputStream outputStream = (ReliableSocketOutputStream) node.SocketKing
@@ -99,7 +94,6 @@ public class NodeThread extends Thread {
 	}
 
 	public void run() {
-		// receiveFreindList();
 		switch (commandMessage) {
 		case "MS_Done":
 			break;
@@ -191,15 +185,9 @@ public class NodeThread extends Thread {
 				System.out.println("Public ");
 			}
 
-//			PrintWriter out = new PrintWriter(
-//					node.SocketKing.getOutputStream(), true);
-//			out.println(confirmMSG);
-//			out.flush();
-			
 			sendMSG_king(node, confirmMSG);
 
 		}
-		// send_ds.close();
 	}
 
 	public void sendAlertMSG(Node newNode, String commandMessage)
@@ -333,7 +321,6 @@ public class NodeThread extends Thread {
 					+ freindNode.private_ia + " "
 					+ freindNode.private_portNumber);
 
-//			sendMSG_king(freindNode, "MS_");
 			sendMSG_king(freindNode, addFreindStr);
 		} catch (Exception e) {
 			ArrayList<String> idArr = null;
@@ -374,8 +361,6 @@ public class NodeThread extends Thread {
 			addFreindStr = "'MS_AllowAddFreind'" + "!" + freindId + "!";
 
 			sendMSG_king(myNode, addFreindStr);
-
-			// send_ds.close();
 
 		} catch (Exception e) {
 			ArrayList<String> idArr = null;

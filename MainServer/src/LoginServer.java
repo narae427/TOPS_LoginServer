@@ -90,7 +90,6 @@ public class LoginServer implements Runnable {
 						System.out.println("message : " + message);
 
 						// if(message.contains("MS_Unconnection")) break;
-						// /////////////////////////////////////////////////////////////////////
 
 						Node node = new Node();
 						node.setPublicInfo(Node_publicIP, Node_publicPN);

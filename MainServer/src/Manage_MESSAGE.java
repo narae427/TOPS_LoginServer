@@ -12,16 +12,10 @@ import java.util.regex.Pattern;
 import net.rudp.*;
 
 public class Manage_MESSAGE extends Thread{
-//	static InetAddress Node_publicIP = null;
-//	static InetAddress Node_privateIP = null;
-//	static int Node_publicPN = 0; 
-//	static int Node_privatePN = 0; 
-//	static int MS_ReceivePortNumber = 8081;
 	static HashMap<String, Node> nodeList = new HashMap();
 
 	String printMsg = "";
 	String printID = "";
-	// String printPT = "";
 	String connectTime = "";
 	static HashMap<String, ArrayList<String>> waitingListForRequestAddFreind = new HashMap<>();
 	static HashMap<String, ArrayList<String>> waitingListForAllowAddFreind = new HashMap<>();
@@ -115,13 +109,11 @@ public class Manage_MESSAGE extends Thread{
 				printMsg = commandMessage;
 				connectTime = getTime();
 				System.out.println(getMSG());
-				Node newnode = new Node(idMessage,LoginServer.Node_publicIP , LoginServer.Node_privatePN, LoginServer.Node_privateIP,LoginServer.Node_publicPN,connectTime);////HERE
-//				Node newnode = new Node(idMessage,LoginServer.Node_privateIP , LoginServer.Node_privatePN, LoginServer.Node_publicIP,LoginServer.Node_publicPN,connectTime);
+				Node newnode = new Node(idMessage,LoginServer.Node_publicIP , LoginServer.Node_privatePN, LoginServer.Node_privateIP,LoginServer.Node_publicPN,connectTime);
 				nodeList.put(idMessage, newnode);
 
 				NT = new NodeThread(newnode,fidMessage,  commandMessage);
 				NT.setSocket(socket);
-//				NT.setPublicInfo(socketNode.public_ia, socketNode.public_portNumber);
 				NT.setPublicInfo(newnode.public_ia, newnode.public_portNumber);
 				
 				
@@ -133,18 +125,12 @@ public class Manage_MESSAGE extends Thread{
 			case "MS_Unconnection":
 				idMessage =  getPatternfromMSG(message, idPattern);
 				fidMessage = getPatternfromMSG(message, fidPattern);
-//				 ipMessage =   getPatternfromMSG(message, ipPattern);
-//				 Node_privateIP = InetAddress.getByName(ipMessage);
-//				 pnMessage = getPatternfromMSG(message, pnPattern);
-//				 Node_privatePN =  Integer.valueOf(pnMessage);
 				
 				printID = idMessage;
 				printMsg = commandMessage;
 				connectTime = getTime();
 				System.out.println(getMSG());
 
-//				Node oldnode = new Node(idMessage,  Node_privateIP, Node_privatePN, Node_publicIP, Node_publicPN,connectTime);
-//				nodeList.remove(idMessage);
 				Node oldnode = nodeList.get(idMessage);
 				nodeList.remove(idMessage);
 				System.out.println("NodeList " + nodeList + " key : " + nodeList.containsKey(idMessage));
@@ -169,7 +155,6 @@ public class Manage_MESSAGE extends Thread{
 
 				NT = new NodeThread(fidMessage, commandMessage);
 				NT.setSocket(socket);
-//				socketNode.socket = (ReliableSocket) socket;
 				
 				node = nodeList.get(idMessage);
 				NT.setNode(node);
@@ -193,7 +178,6 @@ public class Manage_MESSAGE extends Thread{
 				NT = new NodeThread(idMessage, fidMessage,
 						commandMessage);
 				NT.setSocket(socket);	
-//				socketNode.socket = (ReliableSocket) socket;
 
 				node = nodeList.get(idMessage);
 				NT.setNode(node);
@@ -210,7 +194,6 @@ public class Manage_MESSAGE extends Thread{
 				fidMessage = getPatternfromMSG(message, fidPattern);
 
 				printID = idMessage;
-				// printID = mf_myID;
 				printMsg = commandMessage;
 				System.out.println(getMSG());
 
@@ -219,7 +202,6 @@ public class Manage_MESSAGE extends Thread{
 				NT = new NodeThread(idMessage, fidMessage,
 						commandMessage);
 				NT.setSocket(socket);
-//				socketNode.socket = (ReliableSocket) socket;
 				NT.setPublicInfo(socketNode.public_ia, socketNode.public_portNumber);
 				
 				
@@ -233,14 +215,12 @@ public class Manage_MESSAGE extends Thread{
 				fidMessage = getPatternfromMSG(message, fidPattern);
 
 				printID = idMessage;
-				// printPT = mf_myID;
 				printMsg = commandMessage;
 				System.out.println(getMSG());
 
 				NT = new NodeThread(idMessage, fidMessage,
 						commandMessage);
 				NT.setSocket(socket);
-//				socketNode.socket = (ReliableSocket) socket;
 				NT.setPublicInfo(socketNode.public_ia, socketNode.public_portNumber);
 				
 				NT.start();
